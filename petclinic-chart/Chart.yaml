@@ -1,0 +1,4 @@
+apiVersion: v1
+name: spring-petclinic-chart
+description: Helm chart for Spring Petclinic and PostgreSQL
+version: 0.1.0

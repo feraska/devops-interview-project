@@ -1,0 +1,20 @@
+
+deppetclic:
+  replicaCount: 1
+  containerPort: 8080
+  image: dsyer/petclinic
+StatefulSet:
+  replicas: 1
+  containerPort: 8080
+  image: postgres
+  tag: 17
+serpetclic:
+  port: 80
+  targetPort: 8080
+  type: NodePort
+db:
+  port: 5432
+  database: petclinic
+  username: petclinic
+  password: petclinic
+

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: petclinic
+spec:
+  type: {{.Values.serpetclic.type}}
+  ports:
+    - port: {{.Values.serpetclic.port}}
+      targetPort: {{.Values.serpetclic.targetPort}}
+      
+  selector:
+    app: petclinic

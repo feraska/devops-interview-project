@@ -9,3 +9,10 @@ VOLUME /home/$USER/.gradle
 ARG JAVA_VERSION=17.0.7-ms
 RUN sudo mkdir /home/$USER/.m2 /home/$USER/.gradle && sudo chown $USER:$USER /home/$USER/.m2 /home/$USER/.gradle
 RUN bash -lc '. /usr/local/sdkman/bin/sdkman-init.sh && sdk install java $JAVA_VERSION && sdk use java $JAVA_VERSION'
+
+WORKDIR /app
+COPY . .
+RUN ./mvnw package
+
+EXPOSE 8080
+CMD ["java", "-jar", "target/spring-petclinic-3.4.0-SNAPSHOT.jar"]
