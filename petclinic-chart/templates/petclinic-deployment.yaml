@@ -27,7 +27,7 @@ spec:
                 {
                   "server.address": "0.0.0.0",
                   "management.endpoints.web.exposure.include": "*",
-                  "management.endpoint.health.show-details": "always"
+                  "management.endpoint.health.show-details": "always",
                   "management.endpoint.health.probes.add-additional-paths": true
                 }
           ports:
@@ -35,13 +35,21 @@ spec:
               containerPort: {{.Values.deppetclic.containerPort}}
           livenessProbe:
             httpGet:
-              path: /livez
+              #path: /livez
+              path: /actuator/health/liveness
               port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 10
             
           readinessProbe:
             httpGet:
-              path: /readyz
+              #path: /readyz
+              path: /actuator/health/readiness
               port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 10
             
           volumeMounts:
             - mountPath: /bindings/secret
