@@ -9,7 +9,7 @@ COPY src ./src
 COPY mvnw .
 COPY .mvn .mvn
 # Run build skipping git plugin and tests
-RUN ./mvnw clean package -Dgit-commit-id.skip=true -DskipTests -Dgit.skip=true
+RUN ./mvnw clean package 
 
 FROM openjdk:17-jdk-slim
 WORKDIR /app
