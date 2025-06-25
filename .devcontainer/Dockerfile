@@ -7,7 +7,7 @@ COPY pom.xml .
 # Copy src and other resources (excluding .git if you want)
 COPY src ./src
 COPY mvnw .
-
+COPY .mvn .mvn
 # Run build skipping git plugin and tests
 RUN ./mvnw clean package -Dgit-commit-id.skip=true -DskipTests -Dgit.skip=true
 
