@@ -12,6 +12,7 @@ RUN bash -lc '. /usr/local/sdkman/bin/sdkman-init.sh && sdk install java $JAVA_V
 
 WORKDIR /app
 COPY . .
+RUN chmod +x ./mvnw
 RUN ./mvnw package
 
 EXPOSE 8080
