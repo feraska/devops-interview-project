@@ -1,6 +1,9 @@
 FROM maven AS build
 WORKDIR /app
 COPY . .
+RUN mvn -version
+RUN ls -l
+RUN whoami
 RUN mvn clean package -DskipTests
 
 FROM openjdk
