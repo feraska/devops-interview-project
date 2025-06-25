@@ -11,7 +11,7 @@ COPY . .
 RUN ls -l /app/pom.xml
 
 # Skip git plugin to avoid .git directory issues
-RUN mvn clean package -DskipTests -Dgit.commit.id.skip=true
+RUN mvn clean package 
 
 FROM openjdk
 WORKDIR /app
