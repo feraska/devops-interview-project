@@ -4,7 +4,7 @@ COPY . .
 RUN mvn -version
 RUN ls -l
 RUN whoami
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests -e
 
 FROM openjdk
 WORKDIR /app
