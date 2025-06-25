@@ -10,5 +10,5 @@ RUN mvn clean package -X || (echo "Build failed" && cat /app/target/*.log || tru
 FROM openjdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 80
+EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
