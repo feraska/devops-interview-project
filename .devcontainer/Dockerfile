@@ -1,20 +1,21 @@
-FROM maven AS build
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy pom.xml first to leverage Docker layer caching
+# Copy pom.xml separately for caching
 COPY pom.xml .
 
-# Copy the rest of the project files
-COPY . .
+# Copy src and other resources (excluding .git if you want)
+COPY src ./src
+COPY mvnw .
 
-# Optional: verify POM exists
-RUN ls -l /app/pom.xml
+# Run build skipping git plugin and tests
+RUN ./mvnw clean package -Dgit-commit-id.skip=true -DskipTests -Dgit.skip=true
 
-# Skip git plugin to avoid .git directory issues
-RUN mvn clean package -Dgit-commit-id.skip=true -DskipTests -Dgit.skip=true
-
-FROM openjdk
+FROM openjdk:17-jdk-slim
 WORKDIR /app
+
 COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
+
 CMD ["java", "-jar", "app.jar"]
