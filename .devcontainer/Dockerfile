@@ -1,13 +1,9 @@
-FROM maven AS build
+FROM maven:3.8.6-openjdk-17 AS build
 WORKDIR /app
 COPY . .
-RUN mvn -version && ls -l && ls -l target || true
-# Print files to verify content
-RUN ls -l && cat pom.xml || echo "No pom.xml"
+RUN mvn clean package -DskipTests
 
-# Run Maven with clean output
-RUN mvn clean package -X || (echo "Build failed" && cat /app/target/*.log || true)
-FROM openjdk
+FROM openjdk:17
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
