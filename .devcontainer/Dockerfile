@@ -4,7 +4,7 @@ COPY . .
 RUN mvn -version
 RUN ls -l
 RUN whoami
-RUN mvn clean package -DskipTests -e
+RUN mvn clean package -DskipTests -Dgit.commit.id.skip=true
 
 FROM openjdk
 WORKDIR /app
