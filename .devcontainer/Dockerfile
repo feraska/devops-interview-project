@@ -1,10 +1,17 @@
 FROM maven AS build
 WORKDIR /app
+
+# Copy pom.xml first to leverage Docker layer caching
+COPY pom.xml .
+
+# Copy the rest of the project files
 COPY . .
-RUN mvn -version
-RUN ls -l
-RUN whoami
-RUN mvn clean package -DskipTests -Dgit-commit-id.skip=true
+
+# Optional: verify POM exists
+RUN ls -l /app/pom.xml
+
+# Skip git plugin to avoid .git directory issues
+RUN mvn clean package -DskipTests -Dgit.commit.id.skip=true
 
 FROM openjdk
 WORKDIR /app
